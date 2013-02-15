@@ -1,0 +1,2 @@
+#!/bin/bash
+astyle --style=kr --break-blocks --pad-oper --pad-header --indent-labels --indent-switches --indent-preprocessor -Y --add-brackets --unpad-paren --min-conditional-indent=0 --max-instatement-indent=60 --align-pointer=name --align-reference=name --suffix=none --lineend=linux -r "*.c" "*.h"

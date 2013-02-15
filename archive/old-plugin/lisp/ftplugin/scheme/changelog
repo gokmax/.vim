@@ -1,0 +1,40 @@
+Thu Jun  6 00:36:46 EDT 2002
+
+- Updated the README.  Added lots of documentation.
+- Added looking up keywords in the HyperSpec
+- Added a Lisp keyword thesaurus
+- changed VIlisp.vim to check for the existence of a BufRead/*.lsp event
+
+Tue Apr 30 20:19:46 EDT 2002
+
+- made the "sysread of tty returned undef" when you exit the interpreter
+  conditional on $debug
+- added "stty sane" on exit of funnel.pl.  cmucl lisp doesn't need it, but
+  apparently at least one Octave or R user does.
+
+Thu Apr 11 00:38:46 EDT 2002
+
+- change wincol() to vircol(".").  Allows use of ":set nu" and may fix other
+  problems
+- Use "normal!" instead of "normal" everywhere, so as to avoid any problems
+  with user-defined mappings
+
+Wed Feb 27 01:15:02 EST 2002
+
+- marked error messages in funnel.pl better
+- added some other debugging prints
+- only unlink FIFO if debug value == 0
+
+Thu Feb 21 00:15:31 EST 2002
+
+- Added ^C processing to funnel.pl
+- added use of <Leader> in VIlisp.vim mappings
+    - In this changelog, I will use "," as my <Leader>
+- added a few mappings:
+    - ,qi -- quit interpreter
+    - ,ci -- send ^C to interpreter
+- added $Header: /home/lmc/lisp/briefcase/VIlisp/devel/RCS/changelog,v 1.1 2002/06/11 01:58:19 lmc Exp $ lines to VIlisp.vim & funnel.pl
+- reindented some code in funnel.pl
+- changed signal sent to background "writer" process on exit from 2 to 1
+- added -D <debug-level> and -b <blocksize> to funnel.pl
+

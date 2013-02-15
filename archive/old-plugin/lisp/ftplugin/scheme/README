@@ -1,0 +1,406 @@
+
+Last updated: Tue Jun 11 00:37:16 EDT 2002
+
+Purpose & a bit of history
+--------------------------
+
+With his voluminous interview on /., Kent Pitman inspired me to check out
+Lisp.  I've seen it before (in Hofstadter's Metamagical Themas and other
+places), and even, long ago, wrote a small Lisp interpreter in Turbo Pascal
+(v4).
+
+However, Kent didn't quite inspire me to learn Emacs.  I fiddled with it, and
+purchased _Learning GNU Emacs_, so I can figure it out if I absolutely must,
+but I've been a vi/Vim user since I discovered Unix, and I figured I could
+skip Emacs if I could figure out how to get Vim to talk to Lisp.  I've
+implemented the absolute basics -- sending an expression from the editor to
+the interpreter -- and hope to do more, as time goes by.
+
+VIlisp.vim defines functions and key mappings to send Lisp code to a CMU CL
+process running in a separate terminal window, via funnel.pl.  funnel.pl, a
+Perl script, accepts input both from Vim (via a fifo, which it creates) and
+from its own terminal window (via GNU ReadLine), and sends it to CMU CL, and
+prints the output (via "print" :).
+
+New June 2002:
+
+VIlisp.vim also interfaces to your local copy of the Common Lisp HyperSpec,
+via another Perl script (VIlisp-hyperspec.pl), and does Lisp keyword lookups
+via an included Vim thesaurus file.
+
+
+Installation
+------------
+
+Put this at an appropriate place in your ~/.vimrc:
+
+    autocmd BufRead *.lsp,*.lisp so ~/path/to/VIlisp.vim
+
+Put lisp-thesaurus in the same directory as VIlisp.vim.
+
+In an Xterm, run
+
+    export PERL_RL=gnu			# use GNU readline in funnel
+    funnel.pl $HOME/.lisp-pipe lisp
+
+In a different xterm, run e.g.
+
+    vim test.lisp
+
+NOTE: VIlisp.vim hardcodes use of "~/.lisp-pipe".  If you use a different
+invocation line for funnel.pl, you must update VIlisp.vim.
+
+
+Usage
+-----
+
+Evaluating an expression:
+
+Put the cursor in a Lisp expression.  Type \es to _e_valuate the
+_s_-expression.  Type \ec to _e_valuate the _c_urrent expression.  (This
+assumes you have mapleader set to the default value of backslash ("\").  If
+not, use your chosen <Leader>, of course.  See ":help leader".)
+
+Example:
+
+    (defun fib (n)
+      (cond ((or (= n 0)
+		 (= n 1)) 1)
+	    (t (+ (fib (- n 1))
+	    ;      ^ cursor here
+		  (fib (- n 2))))))
+
+With the cursor at the indicated spot, "\es" will eval the entire defun, and
+"\ec" will evaluate "(fib (- n 1))".  
+
+Using the HyperSpec:
+
+Example 1:
+
+    (defun fib (n)
+    ;   ^ cursor here
+      (cond ((or (= n 0)
+		 (= n 1)) 1)
+	    (t (+ (fib (- n 1))
+		  (fib (- n 2))))))
+
+With the cursor at the indicated spot, "K" (see below) will invoke your
+browser with file://localhost/path/to/hyperspec/Body/m_defun.htm#defun. This
+may require some configuration of a Perl script, VIlisp-hyperspec.pl.  See
+below.
+
+Example 2:
+
+    with-
+    ; ^ cursor here
+
+With the cursor at the indicated spot, "\hp" (see below) will invoke your
+browser with the address of a freshly built index of links to
+
+    with-accessors
+    with-compilation-unit
+    with-condition-restarts
+    with-hash-table-iterator
+    with-input-from-string
+    with-open-file
+    with-open-stream
+    with-output-to-string
+    with-package-iterator
+    with-simple-restart
+    with-slots
+    with-standard-io-syntax
+
+See below for other HyperSpec key mappings.
+
+Using the Lisp keyword thesaurus:
+
+Example 1:
+
+    least-
+    ;     ^ cursor here
+
+With the cursor at the indicated spot, ^N (Ctrl-N) will expand "least-" into
+"least-negative-long-float" first, then (with another ^N)
+"least-positive-long-float", then "least-negative-short-float", and so on.
+
+Example 2:
+
+    p-n
+    ;  ^ cursor here
+
+With the cursor at the indicated spot, ^N^N (Ctrl-N twice) will expand the p-n
+to package-name.  ^N again will replace "package-name" with "pathname-name",
+and ^N yet again will replace that with "pprint-newline".  See Vim help for 
+'complete', compl-generic, and i_CTRL-X_CTRL-T.  Also, see below for notes on
+this facility.
+
+
+Mappings
+--------
+
+Assumes mapleader == "\".  This is the default.
+
+Eval Expressions:
+
+\es		send top-level s-exp to lisp: "eval s-exp"
+\ec		send current s-exp to lisp: "eval current"
+\eb		send current visual block to lisp: "eval block"
+
+Manipulate the interpreter:
+
+\ri		Send "q<enter>" to interpreter.  Useful for exiting debug mode
+		in CMU CL.  "reset interpreter"
+\qi		send "(quit)<enter>" to interpreter: "Quit interpreter"
+\ci		send ^C to the interpreter: "^C interpreter"
+
+Manipulate expression within Vim buffers:
+
+\ct		copy current s-exp to test buffer: "copy to test"
+
+Loading & compiling:
+
+\lf		load currently edited file: "load file"
+
+		If you're currently editing "foo.lisp", sends 
+		
+		    (load "foo.lisp")
+
+		to the interpreter.
+
+\laf		load currently edited file, or its compiled counterpart: 
+		"load any file"
+
+		CMUCL loads compiled files (*.x86f) in preference to source
+		code (*.lisp).  So if you've compiled the file already, \lcf
+		will load the compiled version.  If you haven't, it'll load
+		the .lisp file.
+
+		If you're currently editing "foo.lisp", sends
+
+		    (load "foo")
+
+		to the interpreter, which will load either "foo.x86f" or
+		"foo.lisp".
+
+\lcf		Synonym for \laf.  "load compiled file".  (Perhaps a slightly
+		misleading mnemonic, but useful.)
+
+
+Moving around in the VIlisp buffers:
+
+\tb		switch to test buffer, ~/.VIlisp_test
+\wtb		Open a new window with ~/.VIlisp_test, and switch to it
+\sb		go to VIlisp's scratch buffer.  VIlisp uses this buffer as a
+		sort of staging area for sending expressions to the
+		interpreter.  Do not edit code here -- VIlisp erases it each
+		time you send something to the interpreter.
+\tr		Go from test buffer or scratch buffer to most recently edited
+		lisp file.  Used to return from \tb, \wtb, or \sb.  "test
+		return"
+\lb		Synonym for \tr: "Lisp buffer"
+
+Mark & format code:
+
+\ms		Mark the current top-level s-expr: "mark s-expr"
+\fc		Re-indent the current s-expr: "format current"
+\fs		Re-indent the current top-level s-expr: "format s-expr"
+
+==		Re-indent current line.  See "help ==".
+
+Insert code:
+
+\il		Put a list around the current form: "insert list"
+\cc		Comment current code.  Doesn't work on some forms.  Still
+		somewhat buggy.  "comment current"
+
+
+Search the HyperSpec:
+
+\he		Search CLHS for an exact match of the word under the cursor.
+K		Synonym for \he
+\hp		Search using the current word as a prefix, e.g. with-*
+\hs		Search using the current word as a suffix.
+\hg		"grep" the HyperSpec for the current word.
+\hi		Go the the index page of the first letter of the current word.
+		E.g., if you have the cursor on "member" and type \hi, takes
+		you to the Permuted Symbol Index (M) page.
+\hI		Takes you to the Alphabetical Symbol Index & Permuted Symbol
+		Index page.
+
+See below on configuring VIlisp-hyperspec.pl to use your favorite browser to
+access the Common Lisp HyperSpec.
+
+
+Reload VIlisp.vim:
+
+\rvil		Reload VIlisp.vim
+
+
+See VIlisp.vim for other mappings (if any; I think I've gotten them all), or
+to change the current ones.
+
+
+Configuring VIlisp-hyperspec.pl to find the HyperSpec
+-----------------------------------------------------
+
+VIlisp.vim calls this Perl script to do the dirty work of invoking a browser
+and setting it on the right page.  I use Opera (www.opera.com), so
+VIlisp-hyperspec.pl comes pre-configured to use it.  I've done some testing
+with Lynx and Netscape, so uncomment those lines to try those browsers.  I
+haven't gotten Konqueror to work to my satisfaction; if you do, please drop me
+an e-mail.
+
+The script has five configuration variables at the top:
+
+    $BASE			Where you keep your copy of the HyperSpec.
+				Defaults to /usr/share/doc/hyperspec.
+
+    $browser_name		The name of your browser, assumed findable via
+				your $PATH.  Defaults to "opera".
+
+    $external			Will your browser open a new window (e.g. set to 0 to
+				use lynx).  Defaults to 1.
+
+    @browser_args		Array of string arguments to your browser.
+    
+				Opera's "new-page" argument to openURL gives
+				each set of HyperSpec search results a new
+				page (in Multiple Document Interface (MDI)
+				mode; I haven't fiddled with SDI mode).  If
+				you take it out, Opera will open the various
+				pages in the same page, and you can use the
+				forward and back buttons to find the page you
+				want.
+
+				Other browsers may have analogous flags, and
+				similar behavior.  (Or they may not -- I can't
+				find any specs on sending a running konqueror
+				process a new URL.  If you know how to do
+				this, please drop me an e-mail.)
+
+				VIlisp-hyperspec.pl replaces %s in
+				@browser_args with the URL to be opened.  See
+				the Opera configuration for an example.
+
+    $READLINE_ON_BROWSER_START	whether to make you press enter when it starts
+				a browser for the first time.  Defaults to 0
+				(i.e. no).
+
+The script requires you to have a local copy of the HyperSpec.  It searches
+$BASE/Front/X_Perm_*.htm to find the symbols you want it to look for.  You can
+find a tarball of the CLHS at http://www.xanalys.com.  If you use Debian,
+"apt-get install hyperspec" will put the HyperSpec in
+/usr/share/doc/hyperspec.  VIlisp-hyperspec.pl looks for it there, by default.
+
+
+Configuring VIlisp.vim to use the HyperSpec
+-------------------------------------------
+
+(First, read the above about configuring VIlisp-hyperspec.pl.)
+
+VIlisp.vim uses a common interface to do CLHS lookups, a Vim function called
+VIlisp_hyperspec.  This function takes two arguments: a search type, and a
+make-page flag.  It then figures out the word under the cursor, and calls
+VIlisp-hyperspec.pl with the search type, the make-page flag, and the word.  
+
+The search types correspond to the varying kinds of searches
+VIlisp-hyperspec.pl can do (exact, prefix, suffix, grep, index, and
+index-page).
+
+The make-page flag tells VIlisp-hyperspec.pl whether to make an index page if
+it finds multiple matches of the word you give it.  If you set the make-page
+flag to 1, it will make the index page; otherwise, it will send all the found
+pages to the browser, one after the other.  
+
+To modify the make-page flag settings, search VIlisp.vim for "Search the
+hyperspec", and set the second argument in the calls to VIlisp_hyperspec to 1
+(to make an index page) or 0 (to not make an index page).  If you do this
+while editing a Lisp file, remember to save VIlisp.vim and reload it in the
+Lisp buffer via \rvil.
+
+VIlisp.vim defaults to not make a page for exact match searches (with \he or K
+commands), and to make a page for prefix, suffix, and grep searches -- unless
+it only finds one match, in which case it goes directly to it.
+VIlisp-hyperspec.pl ignores the make-page flag for index and index-page type
+searches.
+
+
+Configuring the Lisp keyword thesaurus
+--------------------------------------
+
+The VIlisp package includes a file called lisp-thesaurus.  Put it in the same
+directory as VIlisp.vim, and VIlisp.vim will find it.
+
+
+Notes on the Lisp keyword thesaurus
+-----------------------------------
+
+- Due to the way the Vim thesaurus works, you have to press ^N (Ctrl-N) twice
+  to get the first replacement for abbreviations like w-a => with-accessors,
+  but only once after that.  For Vim to know to expand w-a into
+  with-accessors, I have to include w-a in the thesaurus file, so w-a expands
+  first into just w-a, *then* with-accessors.  See the lisp-thesaurus file and
+  "help i_CTRL-X_CTRL-T".
+
+- To get the *'s and &'s to expand correctly, make sure you include * and & in
+  the 'iskeyword' option.  ascii(7) and "help 'iskeyword'" may help with this.
+  I use "iskeyword=&,*,+,45,/,48-57,:,<,=,>,@,A-Z,a-z,_".
+
+- For the multi-word symbols beginning with * and & (e.g. &allow-other-keys),
+  you can expand on an abbreviation with or without the leading special
+  character (e.g. a-o-k and &a-o-k both expand into &allow-other-keys (if
+  you've set iskeyword correctly -- see above)).
+
+- lisp-thesaurus sorts keywords by length, and then alphabetically.  This
+  mostly matters when expanding ambiguous abbreviations for multi-word
+  symbols.  E.g., c-i expands into char-int, then count-if (which both have
+  eight characters), then clear-input (which comes before count-if
+  alphabetically, but has eleven characters).
+
+- I generated lisp-thesaurus from the HyperSpec with make-lisp-thes.pl.
+  Figuring it out, I leave as an exercise to the reader.
+
+
+The Future
+----------
+
+I expect I'll keep working on this -- functionality is still pretty minimal
+(adding folding would be nice), and the code isn't all that clean, either.
+Feel free to e-mail me if you have any questions, comments, suggestions, or
+(be still my heart :) patches.
+
+Maybe once I know more Lisp I'll rewrite the Perl scripts in it.  For now, I
+know Perl better than Lisp, so they stay.  :)
+
+
+My configuration
+----------------
+
+I use: Vim v6.0.93, CMU Common Lisp x86-linux 3.0.8 18c+, and Perl 5.6.1.
+funnel.pl requires Perl modules IO::Pty, Term::ReadLine, and probably
+Term::ReadLine::Gnu.  Developed on Debian "woody" GNU/Linux, kernel 2.4.17/18.
+YMMV.
+
+
+Other stuff
+-----------
+
+funnel.pl would probably work with any Lisp that will run in an xterm; just
+change how it exits Lisp; CMU CL uses "(quit)".  I've received reports of it
+working with Octave and R.
+
+In addition to the two arguments mentioned above, funnel.pl accepts two
+options, -D <debug-level> and -b <blocksize>.  -D specifies the debug level (1
+to 3, currently), -b specifies number of bytes to try to read from the FIFO at
+once (defaults to 1024).
+
+
+Where to find VIlisp
+--------------------
+
+http://vim.sourceforge.net/scripts/script.php?script_id=221
+
+
+-- Larry Clapp
+   larry@theclapp.org
+

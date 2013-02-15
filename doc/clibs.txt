@@ -1,0 +1,83 @@
+*clibs* Syntax highlighting for C files
+
+DESCRIPTION							       *clibs*
+
+    This modifies the default |c.vim| syntax file to highlight functions and
+    constants from standard libraries. All options supported by the |c.vim|
+    syntax file are also supported. Additionally, two Vim variables
+    |c_hi_identifiers| and |c_hi_libs| control what is highlighted.
+
+    To enable all possible highlighting, put >
+
+	let c_hi_identifiers	= 'all'
+	let c_hi_libs		= ['*']
+
+<   in |~/.vimrc|. For exact meaning of these variables, see below.
+
+							    *c_hi_identifiers*
+
+    The variable |c_hi_identifiers| controls what items from the particular
+    library are highlighted. If this variable does not exist, then no extra
+    highlighting of identifiers is done, except for the few identifiers that
+    were defined in the original |c.vim| syntax file. (Reducing the amount of
+    syntax highlighting will improve Vim's performance). The value of
+    |c_hi_identifiers| is a comma / space separated list of words with the
+    following meanings:
+
+	{functions}
+	    All functions
+
+	{constants}
+	    All lower case constants
+
+	{CONSTANTS}
+	    All upper case constants that do not begin with an underscore
+
+	{_CONSTANTS}
+	    All upper case constants beginning with an underscore
+
+	{all}
+	    All functions and constants
+
+	{generic_functions}
+	    Highlight everything that looks like it might be the name of a
+	    function. Only makes sense to do if you have not enabled library
+	    specific functions, but you can use this option in conjunction
+	    with highlighting library specific constants. This option is not
+	    as expensive as highlighting specific library functions, but is
+	    not as useful :)
+
+								   *c_hi_libs*
+
+    The |c_hi_libs| variable controls which libraries highlighting is done
+    for. It should be a list containing names (or glob patterns) of the
+    libraries to highlight identifiers from. Currently only syntax files for
+    'glibc' and 'xlib' are provided.
+
+    NOTE: The |c_hi_libs| can be a buffer local variable, so you can use an
+    auto-command to add project specific libraries on a per file basis.
+
+ADDING LIBRARIES					    *adding_libraries*
+
+    You can generate a list of functions from header files using
+    exuberant-ctags via: >
+
+      :r! echo syn keyword cLibFunction  contained $(exuberant-ctags --c-kinds=p -f - *.h | cut -f1)
+
+<   Though it is better to generate function / constant lists from the
+    documentation, as that should be more correct. The actual header files
+    might have a few internal items, or define a few functions as macros etc.
+
+    NOTE: exuberant-ctags has trouble with some header files (e.g. stdlib.h on
+    Linux) because of some gcc extensions (e.g. __THROW) not recognized by
+    exuberant-ctags.
+
+    If you make any additions, please make sure that you provide an option to
+    disable syntax highlighting for your library functions / constants via the
+    |c_hi_identifiers| variable. Preferably use the same conventions as above.
+
+------------------------------------------------------------------------------
+>
+ Maintainer	: Gautam Iyer <gi1242 at users . sourceforge . net>
+ Modified	: Fri 08 Jun 2007 08:01:19 PM PDT
+ vim: ft=help:tw=78:iskeyword=!-~,^*,^|,^":ai:
