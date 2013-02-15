@@ -7,3 +7,4 @@ set columns=94              " The width of the windows
 set lines=48
 colorscheme b_lucius
 "colorscheme b_slate2
+"test line
