@@ -1,0 +1,29 @@
+Personal vim configuration 
+
+The scripts are grouped separated with each one in a single folder, which 
+leads to better add and remove. In addition, most of the scripts that work 
+for specific language, such as c, will only loaded when you are writing the 
+specific language, thus saving key mappings and accelerate the start up.
+
+Requirements
+============
+1. *clang* is installed in order to use the clang completion plugin. 
+   You'd better install clang is the default path.
+2. *cscope* is installed. You'd better install cscope in the default 
+   path.
+3. *cscope* feature is enabled if you compile vim from source code.
+4. *python* feature should be enabled when you compile you vim
+
+Remarkable Features
+===========
+1. Fairly good completion method, you can almost complete everything 
+   in C and C++ with a fairly fast speed. I don't use *ctags* for 
+   completion any longer, instead, I use *clang_complete* and 
+   *neocomplcache*, making them working together at the same time. You 
+   can even use such complete method for the Qt library, which is 
+   quite large.
+
+2. Nice cross-reference look up using *cscope*. I replace *ctags* 
+   completely with *cscope*. Now *cscope* has better capability, and 
+   you can jump to and jump back just like using ctags. For more 
+   keymappings you can refer to *.vim/bundle/cscope/plugin/cscope.vim*
