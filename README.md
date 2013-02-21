@@ -10,21 +10,21 @@ the editing environment, which means you can edit in the style you want.
 
 NOW, below is a quick look of it.
 
-![Screenshots](http://github.com/gokmax/.vim/blob/master/doc/quickLook.png)
+![Screenshots](http://github.com/gokmax/.vim/tree/master/doc/quickLook.png)
 
 
 features:
 
-    1. The left part as we can see is the Window Manager. // you can type ,wm to
+   * 1. The left part as we can see is the Window Manager. // you can type ,wm to
        open it in the normal mode.
 
-    2. The right part is the main environment that we works. The color style of the
+   * 2. The right part is the main environment that we works. The color style of the
        code is using the ranbom-scheme which is my favorite one.
 
-    3. At the bottom of the right part these is some external information which can
+   * 3. At the bottom of the right part these is some external information which can
        remind us where we are when typing and what it is the time.
 
-    4. The ":!" can help you to go back to the terminal temporary.
+   * 4. The ":!" can help you to go back to the terminal temporary.
 
 
 ##Why should I use it?
@@ -45,12 +45,24 @@ paragraph. But if you are new to it, the next post may help you.
 * [Vim plugins I use](http://mirnazim.org/writings/vim-plugins-i-use/)
 
 ##How to get it as my vim file?
-1. If you don't familiar to the command-line, just download the whole file as
+* 1. If you don't familiar to the command-line, just download the whole file as
    the .zip file in the download icon in the front of this page.
-2. Else if you have a git account, just type the following command in your
+* 2. Else if you have a git account, just type the following command in your
    terminal.  // remember to open the folder you want before git clone it!
 
                   git clone git://github.com/gokmax/.vim.git
+* 3. Belows Are the Installation in Unix-like system.
+
+###Installation
+1. Backup your old vim configuration files:
+
+        mv ~/.vim ~/.vim.orig
+        mv ~/.vimrc ~/.vimrc.orig
+
+2. Clone and install this repo:
+
+        git clone git://github.com/gokmax/.vim.git ~/.vim
+        ln -s ~/.vim/vimrc ~/.vimrc
 
 ##Where should I put the .vim files? (important!)
 This .vim files uses the map theory to save its configurations. As default, I
