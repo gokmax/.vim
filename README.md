@@ -23,7 +23,7 @@ the editing environment, which means you can edit in the style you want.
    * At the bottom of the right part there is some external information which can
        remind us where we are when typing and what it is the time.
 
-   * The ":!" can help you to go back to the terminal temporarily
+   * The ":!" can help you to go back to the terminal temporarily.
 
 ###Shortcuts:
    * 'Ctrl + h/j/k/l' to change your cursor between the different parts.
@@ -136,6 +136,7 @@ specific language, thus saving key mappings and accelerate the start up.
 
 ##About the this Vim
 ###It is the files that many people I know and I don't know who contributed to it. I get the first version from [huige](http://github.com/copico) and develop a little of it(such as writing some functions or adding my own color-scheme).
-###Hope you can enjoy the magic tours of Vim, 
-###sincerely Gokmax 2013.02.21 in Sysu-Mstc-Lab.
+###Hope you can enjoy the magic tours of Vim!^0^
+###sincerely, Gokmax. 
+###Sysu-Mstc-Lab, 2013-02-21.
 
