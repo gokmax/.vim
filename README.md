@@ -1,4 +1,4 @@
-Gokmax's vim configuration
+Gokmax's Vim configuration
 ==========================
 
 Welcome to see my vim configuration! Below will describe the whole features of
@@ -7,6 +7,17 @@ the Gokmax's vim.
 ##What is vim?
 In my opinion, vim is an editor which can almostly meet all your requirements in
 the editing environment, which means you can edit in the style you want.
+
+now: below is a quick look of it.
+![Screenshots](http://github.com/gokmax/.vim/doc/quickLook.png)
+features:
+    1. The left part as we can see is the Window Manager. // you can type ,wm to
+       open it in the normal mode.
+    2. The right part is the main environment that we works. The color style of the
+       code is using the ranbom-scheme which is my favorite one.
+    3. At the bottom of the right part these is some external information which can
+       remind us where we are when typing and what it is the time.
+    4. The *:!* can help you to go back to the terminal temporary.
 
 ##Why should I use it?
 You may say that some IDEs are strong enough to write code because of its
@@ -26,11 +37,20 @@ paragraph. But if you are new to it, the next post may help you.
 * [Vim plugins I use](http://mirnazim.org/writings/vim-plugins-i-use/)
 
 ##How to get it as my vim file?
-1. If you don't familiar to the command-line, just download the whole file as 
+1. If you don't familiar to the command-line, just download the whole file as
    the .zip file in the download icon in the front of this page.
-2. Else if you have a git account, just type the following command in your 
-   terminal.  // remember to cd the folder you want before git clone it!
-•git clone git://github.com/gokmax/.vim.git
+2. Else if you have a git account, just type the following command in your
+   terminal.  // remember to open the folder you want before git clone it!
+
+                  *git clone git://github.com/gokmax/.vim.git*
+
+##Where should I put the .vim files? (important!)
+This .vim files uses the map theory to save its configurations. As default, I
+put the .vim files in the username/home/ which can easily to enter and map it to
+the real configurations file which means when you change your PC of system, it
+will be a great convenience since you are needn't to re-configure the vim. And,
+this is the shining point of this .vim files. Bellow I will describe it more
+detailedly.
 
 ##The shining feature of this vim file comparing to other one.
 
