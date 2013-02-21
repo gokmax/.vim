@@ -20,10 +20,10 @@ the editing environment, which means you can edit in the style you want.
    * The right part is the main environment that we works. The color style of the
        code is using the ranbom-scheme which is my favorite one.
 
-   * At the bottom of the right part these is some external information which can
+   * At the bottom of the right part there is some external information which can
        remind us where we are when typing and what it is the time.
 
-   * The ":!" can help you to go back to the terminal temporary.
+   * The ":!" can help you to go back to the terminal temporarily
 
 ###Shortcuts:
    * 'Ctrl + h/j/k/l' to change you cursor between the different parts.
