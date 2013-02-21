@@ -135,5 +135,5 @@ specific language, thus saving key mappings and accelerate the start up.
 
 
 ##About the this Vim
-###It is the files that many people I know and I don't know who contributed to it. I get the first version of [huige](http://github.com/copico) and develop a little of it(such write some functions or add my own color-scheme).
-###Hope you can enjoy the magic tours of Vim, sincerely, Gokmax, 2013.02.21.
+###It is the files that many people I know and I don't know who contributed to it. I get the first version from [huige](http://github.com/copico) and develop a little of it(such write some functions or add my own color-scheme).
+###Hope you can enjoy the magic tours of Vim, sincerely, Gokmax, 2013.02.21-night in Sysu-Mstc-Lab.
