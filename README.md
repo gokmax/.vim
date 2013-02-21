@@ -8,12 +8,12 @@ the Gokmax's vim.
 In my opinion, vim is an editor which can almostly meet all your requirements in
 the editing environment, which means you can edit in the style you want.
 
-NOW, below is a quick look of it.
+###NOW, below is a quick look of it.
 
 ![Screenshots](https://raw.github.com/gokmax/.vim/master/doc/quickLook.png)
 
 
-features:
+###Features:
 
    * The left part as we can see is the Window Manager. // you can type ,wm to
        open it in the normal mode.
@@ -25,6 +25,9 @@ features:
        remind us where we are when typing and what it is the time.
 
    * The ":!" can help you to go back to the terminal temporary.
+
+###Shortcuts
+   * 'Ctrl + h/j/k/l' to change you cursor between the different parts.
 
 
 ##Why should I use it?
@@ -71,6 +74,36 @@ the real configurations file which means when you change your PC of system, it
 will be a great convenience since you are needn't to re-configure the vim. And,
 this is the shining point of this .vim files. Bellow I will describe it more
 detailedly.
+
+##Syntax check tools:
+
+Languages    | Lint Tools    | Install guide
+------------ | ------------- | ------------
+C            | gcc           | built-in
+CPP          | g++           | built-in
+CoffeeScript | coffee        | `npm install -g coffeelint`
+CSS          | csslint       | `npm install -g csslint`
+Erlang       | escript       | built-in
+Go           | go            | built-in
+Haml         | haml          | built-in
+Haskell      | ghc-mod       | `cabal install ghc-mod`
+HTML         | tidy          | built-in
+Java         | javac         | built-in
+Javascript   | jshint        | `npm install -g jshint`
+Json         | jsonlint      | `npm install -g jsonlint`
+Less         | lessc         | built-in
+Lisp         | clisp         | built-in
+Lua          | luac          | built-in
+Perl         | perl          | built-in
+PHP          | php           | built-in
+Puppet       | puppet        | built-in
+Python       | pyflakes      | `sudo pip install pyflakes`
+Ruby         | ruby          | built-in
+Scala        | scala         | built-in
+Sass         | sass          | built-in
+Scss         | scss/compass  | `gem install compass`
+XML          | xmllint       | built-in
+YAML         | js-yaml       | `npm install -g js-yaml`
 
 ##The shining feature of this vim file comparing to other one.
 
