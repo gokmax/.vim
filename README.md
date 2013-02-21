@@ -14,7 +14,7 @@ the editing environment, which means you can edit in the style you want.
 
 ###Features:
 
-   * The left part as we can see is the Window Manager. // you can type ,wm to
+   * The left part as we can see is the Window Manager. // you can type `,wm` to
        open it in the normal mode.
 
    * The right part is the main environment that we works. The color style of the
@@ -26,7 +26,7 @@ the editing environment, which means you can edit in the style you want.
    * The ":!" can help you to go back to the terminal temporarily
 
 ###Shortcuts:
-   * 'Ctrl + h/j/k/l' to change you cursor between the different parts.
+   * 'Ctrl + h/j/k/l' to change your cursor between the different parts.
 
 
 ##Why should I use it?
@@ -136,4 +136,6 @@ specific language, thus saving key mappings and accelerate the start up.
 
 ##About the this Vim
 ###It is the files that many people I know and I don't know who contributed to it. I get the first version from [huige](http://github.com/copico) and develop a little of it(such as writing some functions or adding my own color-scheme).
-###Hope you can enjoy the magic tours of Vim, sincerely, Gokmax, 2013.02.21-night in Sysu-Mstc-Lab.
+###Hope you can enjoy the magic tours of Vim, 
+###sincerely Gokmax 2013.02.21 in Sysu-Mstc-Lab.
+
