@@ -1,10 +1,9 @@
 Gokmax's Vim configuration
 ==========================
 
-###Welcome to see my vim configuration! Below I will describe the whole features of
-the Gokmax's vim.
+###Welcome to see my vim configuration! Below I will describe the whole features of the Gokmax's Vim.
 
-##What is vim?
+##What is Vim?
 In my opinion, vim is an editor which can almostly meet all your requirements in
 the editing environment, which means you can edit in the style you want.
 
@@ -26,13 +25,13 @@ the editing environment, which means you can edit in the style you want.
 
    * The ":!" can help you to go back to the terminal temporary.
 
-###Shortcuts
+###Shortcuts:
    * 'Ctrl + h/j/k/l' to change you cursor between the different parts.
 
 
 ##Why should I use it?
 You may say that some IDEs are strong enough to write code because of its
-excellent ability to build the big project which the simple editor can't do.
+excellent ability to build the big project which the simple editor can NOT do.
 Yeah, it is a main reason that sometimes I don't use it too.
 But, without that reason personally I think there is no reason to reject such a
 good editor because it can give you what you want -- the pleasant sensation of
@@ -75,7 +74,7 @@ will be a great convenience since you are needn't to re-configure the vim. And,
 this is the shining point of this .vim files. Bellow I will describe it more
 detailedly.
 
-##Syntax check tools:
+##The syntax check tools that it provides:
 
 Languages    | Lint Tools    | Install guide
 ------------ | ------------- | ------------
@@ -133,3 +132,8 @@ specific language, thus saving key mappings and accelerate the start up.
    completely with *cscope*. Now *cscope* has better capability, and
    you can jump to and jump back just like using ctags. For more
    keymappings you can refer to *.vim/bundle/cscope/plugin/cscope.vim*
+
+
+##About the this Vim
+###It is the files that many people I know and I don't know who contributed to it. I get the first version of [huige](http://github.com/copico) and develop a little of it(such write some functions or add my own color-scheme).
+###Hope you can enjoy the magic tours of Vim, sincerely, Gokmax, 2013.02.21.
