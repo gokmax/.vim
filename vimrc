@@ -667,10 +667,10 @@ au BufRead,BufNewFile *.txt setlocal ft=txt
 " :inoremap } <c-r>=ClosePair('}')<CR>
  :inoremap [ []<ESC>i
 " :inoremap ] <c-r>=ClosePair(']')<CR>
-" :inoremap < <><ESC>i   < is usually used in comparing
+" :inoremap < <><ESC>i   
 " :inoremap > <c-r>=ClosePair('>')<CR>
  :inoremap " ""<ESC>i
- :inoremap ' ''<ESC>i
+" :inoremap ' ''<ESC>i
  :inoremap ` ``<ESC>i
  
 
