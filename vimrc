@@ -745,5 +745,3 @@ if exists("syntax_on")
    hi Type         gui=NONE guifg=#60f0a8 guibg=NONE
    hi Underlined   gui=UNDERLINE guifg=fg guibg=NONE
 
-   " 设置透明度
-set transparency=20

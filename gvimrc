@@ -8,3 +8,4 @@ set lines=48
 colorscheme b_lucius
 "colorscheme b_slate2
 "test line
+set transparency=20 
